@@ -6,13 +6,12 @@ from django.core.mail import send_mail
 
 class EmailBackend(BaseDeliveryBackend):
     identifier = 'email'
-    from_email = settings.DEFAULT_FROM_EMAIL
 
     def get_email(self, user):
         return user.email
 
     def get_from_email(self, user=None):
-        return self.from_email
+        return settings.DEFAULT_FROM_EMAIL
 
     def deliver_to(self, user, context, notice, language):
         email = self.get_email(user)
