@@ -16,7 +16,7 @@ setup(
     url='http://github.com/stefanfoulis/django-notifyme-by-email',
     license='BSD',
     platforms=['OS Independent'],
-    description="A notification framework for django",
+    description="An email delivery backend for django-notifyme",
     long_description=read('README.rst'),
     author='Stefan Foulis',
     author_email='stefan.foulis@gmail.com',
