@@ -1,0 +1,4 @@
+include LICENSE
+include README.rst
+include HISTORY.rst
+recursive-include notifyme_by_email/templates *
