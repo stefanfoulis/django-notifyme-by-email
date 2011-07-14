@@ -1,1 +1,1 @@
-this is the fucking subject for {{ notice.name }}
+{{ site }}: {{ notice.identifier }}
