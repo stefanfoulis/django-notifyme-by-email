@@ -1,4 +1,5 @@
 #-*- coding: utf-8 -*-
+from django.core.mail.message import EmailMultiAlternatives
 from notifyme.delivery.base import BaseDeliveryBackend
 from django.conf import settings
 from django.template.loader import render_to_string
@@ -14,9 +15,9 @@ class EmailBackend(BaseDeliveryBackend):
         return settings.DEFAULT_FROM_EMAIL
 
     def deliver_to(self, user, context, notice, language):
-        email = self.get_email(user)
+        to_email = self.get_email(user)
         context.update({
-            'email': email,
+            'to_email': to_email,
         })
         subject = render_to_string(
             (
@@ -40,6 +41,11 @@ class EmailBackend(BaseDeliveryBackend):
             context_instance=context
         )
         # TODO: send html
-        send_mail(subject, body, self.get_from_email(user), [email])
+        send_mail(subject, body, self.get_from_email(user), [to_email])
+
+        email_msg = EmailMultiAlternatives(subject, body, self.get_from_email(user),
+            [to_email], headers={})
+        email_msg.attach_alternative(body_html, "text/html")
+        email_msg.send()
         
         
